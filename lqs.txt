@@ -1,0 +1,35 @@
+CREATE TABLE 'group' (
+    id INTEGER PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description VARCHAR(255)
+);
+
+CREATE TABLE student (
+    id INTEGER PRIMARY KEY,
+    name VARCHAR(255),
+    group_id INTEGER REFERENCES 'group'(id) NOT NULL
+);
+
+CREATE TABLE student_marks (
+    student_id INTEGER REFERENCES student(id) PRIMARY KEY,
+    math_mark_average FLOAT,
+    physics_mark_average FLOAT,
+    python_mark_average FLOAT
+);
+
+INSERT INTO 'group' VALUES (1, 'Группа 1');
+INSERT INTO 'group' VALUES (2, 'Группа 2');
+
+INSERT INTO student VALUES (1, 'Марина', 1);
+INSERT INTO student VALUES (2, 'Алексей', 1);
+INSERT INTO student VALUES (3, 'Владислав', 2);
+INSERT INTO student VALUES (4, 'Валерия', 2);
+
+INSERT INTO student_marks VALUES (2, 4, 4, 5);
+INSERT INTO student_marks VALUES (3, 3, 4, 3);
+INSERT INTO student_marks VALUES (3, 5, 5, 4);
+INSERT INTO student_marks VALUES (4, 4, 4, 4);
+
+SELECT count(*) FROM 'group' WHERE group_id = 1;
+SELECT name FROM student WHERE group_id = 1;
+SELECT physics_mark_average FROM student_marks WHERE student_id = 1;
